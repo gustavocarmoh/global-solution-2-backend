@@ -1,0 +1,52 @@
+{
+  "name": "meeting-room-scheduler",
+  "version": "1.0.0",
+  "description": "Backend Express API for meeting room scheduling with Oracle, JWT auth, profile management, support chat, and PL/SQL automation.",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "lint": "eslint --ext .ts src"
+  },
+  "keywords": [
+    "express",
+    "oracle",
+    "plsql",
+    "jwt",
+    "meetings"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "openai": "^4.47.1",
+    "oracledb": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/express-validator": "^3.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/oracledb": "^6.5.0",
+    "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^17.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "tsx": "^4.9.3",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

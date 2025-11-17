@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: meeting-room-scheduler-api
+    depends_on:
+      - oracle
+    ports:
+      - "${PORT:-4000}:4000"
+    env_file:
+      - .env
+    environment:
+      PORT: ${PORT:-4000}
+      NODE_ENV: ${NODE_ENV:-production}
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      ORACLE_USER: ${ORACLE_USER:-appuser}
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-apppassword}
+      ORACLE_CONNECTION_STRING: ${ORACLE_CONNECTION_STRING:-oracle:1521/FREEPDB1}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-3.5-turbo}
+    restart: unless-stopped
+
+  oracle:
+    image: gvenzl/oracle-free:23.3-slim
+    container_name: oracle-free
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:-apppassword}
+      ORACLE_DATABASE: ${ORACLE_DATABASE:-FREEPDB1}
+      APP_USER: ${ORACLE_USER:-appuser}
+      APP_USER_PASSWORD: ${ORACLE_PASSWORD:-apppassword}
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo 'SELECT 1 FROM dual;' | sqlplus -s / as sysdba"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  oracle-data:
